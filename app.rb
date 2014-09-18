@@ -8,7 +8,10 @@ set :database, "sqlite3:barbershop.db"
 class Client < ActiveRecord::Base
 end
 
-class Barber <ActiveRecord::Base
+class Barber < ActiveRecord::Base
+end
+
+class Contact < ActiveRecord::Base
 end
 
 before do
@@ -41,4 +44,20 @@ post '/visit' do
 		)	
 
 	erb :message
+end
+
+get '/contacts' do
+  	erb :contacts
+end
+
+post '/contacts' do
+	@email = params[:email]
+	@content = params[:content]
+	@title = "Уииии!"
+	@message = "Спасибо, что написали нам! Мы с Вами обязательно свяжемся."
+
+	Contact.create(email: @email, content: @content)
+
+	erb :message
+
 end
